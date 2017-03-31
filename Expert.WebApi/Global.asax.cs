@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -23,6 +24,9 @@ namespace Expert.WebApi
             GlobalConfiguration.Configuration.EnableCors(corsAttr);
 
             var container = DependencyBuilder.Build();
+
+            GlobalConfiguration.Configuration.Formatters.Clear();
+            GlobalConfiguration.Configuration.Formatters.Add(new JsonMediaTypeFormatter());
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
