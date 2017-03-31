@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Expert.DomainEntities.Entities;
 
 namespace Expert.WebApi.Controllers
 {
@@ -11,10 +12,10 @@ namespace Expert.WebApi.Controllers
     public class CategoriesController : ApiController
     {
         [HttpGet]
-        [Route]
+        [Route("")]
         public IHttpActionResult GetCategories()
         {
-            throw new NotImplementedException();
+            return Ok(new Category { Description = "Description 1", Name = ".NET" });
         }
     }
 }

@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5E7E8EA6-16BA-450F-9527-F33EA636EA91}</ProjectGuid>
+    <ProjectGuid>{F72B6F2A-63F0-4FFC-BB6D-220B7D7CF73E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Expert.Business</RootNamespace>
-    <AssemblyName>Expert.Business</AssemblyName>
+    <RootNamespace>Expert.DomainEntities</RootNamespace>
+    <AssemblyName>Expert.DomainEntities</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,13 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Answer.cs" />
+    <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\CoreEntity.cs" />
+    <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\Tag.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Expert.Data\Expert.Data.csproj">
-      <Project>{b14869cd-889c-405e-a8dc-a0cd28009bc9}</Project>
-      <Name>Expert.Data</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
