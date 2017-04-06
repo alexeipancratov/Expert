@@ -155,6 +155,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Expert.Data\Expert.Data.csproj">
+      <Project>{b14869cd-889c-405e-a8dc-a0cd28009bc9}</Project>
+      <Name>Expert.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Expert.DomainEntities\Expert.DomainEntities.csproj">
       <Project>{f72b6f2a-63f0-4ffc-bb6d-220b7d7cf73e}</Project>
       <Name>Expert.DomainEntities</Name>

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Autofac;
+using Expert.Data;
+using Expert.Data.Repositories;
+using Expert.DomainEntities.ServiceContracts;
 
 namespace Expert.WebApi.Infrastructure
 {
@@ -11,6 +14,9 @@ namespace Expert.WebApi.Infrastructure
         public static IContainer Build()
         {
             var builder = new ContainerBuilder();
+
+            builder.RegisterType<CategoryRepository>().As<ICategoryRepository>();
+            builder.RegisterType<ExpertContext>();
 
             return builder.Build();
         }

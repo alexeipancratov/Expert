@@ -10,7 +10,7 @@ namespace Expert.DomainEntities.ServiceContracts
 {
     public interface ICategoryRepository
     {
-        List<Category> GetCategories();
+        IQueryable<Category> GetCategories();
 
         IQueryable<Category> GetCategoryByFilter(Expression<Func<Category, bool>> expression);
     }
