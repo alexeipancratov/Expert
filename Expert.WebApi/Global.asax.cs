@@ -19,10 +19,6 @@ namespace Expert.WebApi
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
-            var corsAttr = new EnableCorsAttribute("http://<UI_Address>", "*", "*");
-            corsAttr.SupportsCredentials = true;
-            GlobalConfiguration.Configuration.EnableCors(corsAttr);
-
             var container = DependencyBuilder.Build();
 
             GlobalConfiguration.Configuration.Formatters.Clear();

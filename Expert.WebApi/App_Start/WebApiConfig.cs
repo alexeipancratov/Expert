@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Expert.WebApi
 {
@@ -19,6 +20,13 @@ namespace Expert.WebApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            var corsAttr = new EnableCorsAttribute("http://localhost:3000", "*", "*")
+            {
+                SupportsCredentials = true
+            };
+
+            config.EnableCors(corsAttr);
         }
     }
 }
