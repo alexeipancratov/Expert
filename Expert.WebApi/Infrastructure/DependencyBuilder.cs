@@ -17,6 +17,7 @@ namespace Expert.WebApi.Infrastructure
 
             builder.RegisterType<CategoryRepository>().As<ICategoryRepository>();
             builder.RegisterType<ExpertContext>();
+            builder.RegisterGeneric(typeof(BaseRepository<>)).As(typeof(IRepository<>));
 
             return builder.Build();
         }
