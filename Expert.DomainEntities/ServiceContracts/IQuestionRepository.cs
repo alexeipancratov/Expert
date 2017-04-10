@@ -12,7 +12,8 @@ namespace Expert.DomainEntities.ServiceContracts
     {
         IQueryable<Question> GetQuestions();
 
-        IQueryable<Question> GetQuestionByFilter(Expression<Func<Question, bool>> expression);  
+        IQueryable<Question> GetQuestionByFilter(Expression<Func<Question, bool>> expression);
 
+        void Save(Question question);
     }
 }

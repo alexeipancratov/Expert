@@ -9,7 +9,7 @@ namespace Expert.Data
 
         public ExpertContext()
         {
-            var client = new MongoClient(ConfigurationManager.ConnectionStrings["ExpertConnectionString"].Name);
+            var client = new MongoClient(ConfigurationManager.ConnectionStrings["ExpertConnectionString"].ConnectionString);
             Database = client.GetDatabase(ConfigurationManager.AppSettings["ExpertDatabaseName"]);
         }
     }

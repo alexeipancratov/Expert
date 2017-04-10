@@ -28,5 +28,10 @@ namespace Expert.Data.Repositories
         {
             return GetQuestions().Where(expression);
         }
+
+        public void Save(Question question)
+        {
+            _context.Database.GetCollection<Question>("questions").InsertOne(question);
+        }
     }
 }
