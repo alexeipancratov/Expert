@@ -33,5 +33,11 @@ namespace Expert.Data.Repositories
         {
             _context.Database.GetCollection<Question>("questions").InsertOne(question);
         }
+
+        public void Update(Question question)
+        {
+            _context.Database.GetCollection<Question>("questions").UpdateOne(Builders<Question>.Filter.Eq(x => x.Id, question.Id), 
+                                                                             Builders<Question>.Update.Set(x => x, question));
+        }
     }
 }

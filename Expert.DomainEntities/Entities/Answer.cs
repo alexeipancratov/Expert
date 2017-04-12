@@ -4,7 +4,7 @@ namespace Expert.DomainEntities.Entities
 {
     public class Answer : CoreEntity
     {
-        public Question Question { get; set; }
+        public string QuestionId { get; set; }
 
         public DateTime DateTime { get; set; }
 
