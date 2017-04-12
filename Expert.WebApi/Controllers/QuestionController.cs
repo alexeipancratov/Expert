@@ -53,5 +53,19 @@ namespace Expert.WebApi.Controllers
 
             return CreatedAtRoute("GetQuestion", new {id = question.Id}, question);
         }
+
+        [Route("getQuestionsByCategory")]
+        public IHttpActionResult GetQuestionsByCategory(string categoryId)
+        {
+            if (string.IsNullOrWhiteSpace(categoryId))
+            {
+                Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot retrieve questions");
+            }
+
+            var questions = _questionRepository.GetQuestionByFilter(x => x.CategoryId == categoryId);
+
+            return Ok(questions);
+        }
+
     }
 }
