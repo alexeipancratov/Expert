@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Expert.DomainEntities.Entities;
 using Expert.DomainEntities.ServiceContracts;
+using Expert.WebApi.ViewModels;
 
 namespace Expert.WebApi.Controllers
 {
@@ -11,32 +12,46 @@ namespace Expert.WebApi.Controllers
     public class QuestionController : ApiController
     {
         private readonly IQuestionRepository _questionRepository;
+        private readonly IAnswerRepository _answerRepository;
 
-        public QuestionController(IQuestionRepository questionRepository)
+        public QuestionController(IQuestionRepository questionRepository,
+                                  IAnswerRepository answerRepository)
         {
             _questionRepository = questionRepository;
+            _answerRepository = answerRepository;
         }
 
-        [Route("getAll")]
-        [HttpGet]
-        public IHttpActionResult GetQuestions()
+        [Route("{questionId}", Name = "GetQuestion")]
+        public IHttpActionResult GetQuestion(string questionId)
         {
-            var question = _questionRepository.GetQuestions();
-
-            return Ok(question);
-        }
-
-        [Route("{id}", Name = "GetQuestion")]
-        public IHttpActionResult GetQuestion(string id)
-        {
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(questionId))
             {
                 Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot retrieve question");
             }
 
-            var question = _questionRepository.GetQuestionByFilter(x => x.Id == id).SingleOrDefault();
+            var question = _questionRepository.GetQuestionsByFilter(x => x.Id == questionId).SingleOrDefault();
 
             return Ok(question);
+        }
+
+
+        [Route("withAnswers/{questionId}")]
+        public IHttpActionResult GetQuestionWithAnswers(string questionId)  
+        {
+            if (string.IsNullOrEmpty(questionId))
+            {
+                Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot retrieve question");
+            }
+
+            var question = _questionRepository.GetQuestionsByFilter(x => x.Id == questionId).SingleOrDefault();
+            var answers = _answerRepository.GetAnswers(x => x.QuestionId == questionId);
+
+            var viewModel = new QandAViewModel
+            {
+                Question = question,
+                Answers = answers
+            };
+            return Ok(viewModel);
         }
 
 
@@ -51,10 +66,10 @@ namespace Expert.WebApi.Controllers
 
             _questionRepository.Save(question);
 
-            return CreatedAtRoute("GetQuestion", new {id = question.Id}, question);
+            return CreatedAtRoute("GetQuestion", new { questionId = question.Id}, question);
         }
 
-        [Route("getQuestionsByCategory")]
+        [Route("getByCategory/{categoryId}")]
         public IHttpActionResult GetQuestionsByCategory(string categoryId)
         {
             if (string.IsNullOrWhiteSpace(categoryId))
@@ -62,7 +77,7 @@ namespace Expert.WebApi.Controllers
                 Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot retrieve questions");
             }
 
-            var questions = _questionRepository.GetQuestionByFilter(x => x.CategoryId == categoryId);
+            var questions = _questionRepository.GetQuestionsByFilter(x => x.CategoryId == categoryId);
 
             return Ok(questions);
         }

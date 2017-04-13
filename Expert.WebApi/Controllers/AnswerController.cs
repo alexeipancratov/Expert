@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Expert.Data.Repositories;
@@ -17,6 +18,7 @@ namespace Expert.WebApi.Controllers
             _answerRepository = answerRepository;
         }
 
+        [Route("{id}")]
         [HttpGet]
         public IHttpActionResult GetAnswer(string id)
         {
@@ -25,9 +27,23 @@ namespace Expert.WebApi.Controllers
                 Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot retrieve answer");
             }
 
-            var answer = _answerRepository.GetAnswer(x => x.Id == id);
+            var answer = _answerRepository.GetAnswers(x => x.Id == id).SingleOrDefault();
             return Ok(answer);
         }
+
+        [Route("forQuestion/{questionId}")]
+        [HttpGet]
+        public IHttpActionResult GetAnswersForQuestion(string questionId)   
+        {
+            if (string.IsNullOrEmpty(questionId))
+            {
+                Request.CreateErrorResponse(HttpStatusCode.BadRequest, $"Cannot retrieve answers for question {questionId}");
+            }
+
+            var answers = _answerRepository.GetAnswers(x => x.QuestionId == questionId);
+            return Ok(answers);
+        }
+
 
         [Route("create")]
         [HttpPost]

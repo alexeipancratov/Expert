@@ -19,14 +19,9 @@ namespace Expert.Data.Repositories
             _context = context;
         }
 
-        public IQueryable<Question> GetQuestions()
+        public IQueryable<Question> GetQuestionsByFilter(Expression<Func<Question, bool>> expression)
         {
-            return _context.Database.GetCollection<Question>("questions").AsQueryable();
-        }
-
-        public IQueryable<Question> GetQuestionByFilter(Expression<Func<Question, bool>> expression)
-        {
-            return GetQuestions().Where(expression);
+            return _context.Database.GetCollection<Question>("questions").AsQueryable().Where(expression);
         }
 
         public void Save(Question question)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Expert.DomainEntities.Entities;
 
@@ -10,6 +11,6 @@ namespace Expert.DomainEntities.ServiceContracts
 
         void Update(Answer question);
 
-        Answer GetAnswer(Expression<Func<Answer, bool>> filterExpression);
+        List<Answer> GetAnswers(Expression<Func<Answer, bool>> filterExpression);
     }
 }
