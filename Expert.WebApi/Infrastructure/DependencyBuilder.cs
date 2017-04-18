@@ -19,6 +19,7 @@ namespace Expert.WebApi.Infrastructure
 
             builder.RegisterType<CategoryRepository>().As<ICategoryRepository>();
             builder.RegisterType<QuestionRepository>().As<IQuestionRepository>();
+            builder.RegisterType<UserRepository>().As<IUserRepository>();
             builder.RegisterType<ExpertContext>();
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());

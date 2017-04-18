@@ -7,5 +7,7 @@ namespace Expert.DomainEntities.ServiceContracts
         User GetUser(string ldapId);
 
         void UpdateUser(User user);
+
+        void CreateUser(User user);
     }
 }

@@ -23,5 +23,10 @@ namespace Expert.Data.Repositories
             _context.Database.GetCollection<User>("users").UpdateOne(Builders<User>.Filter.Eq(u => u.Id, user.Id),
                 Builders<User>.Update.Set(u => u, user));
         }
+
+        public void CreateUser(User user)
+        {
+            _context.Database.GetCollection<User>("users").InsertOne(user);
+        }
     }
 }
