@@ -27,7 +27,15 @@ namespace Expert.WebApi.Controllers
 
             _userRepository.CreateUser(user);
 
-            return Ok();
+            return CreatedAtRoute("GetUser", new { userId = user.Id }, user);
+        }
+
+        [Route("{userId}", Name = "GetUser")]
+        public IHttpActionResult GetUser(string userId)
+        {
+            User user = _userRepository.GetUser(userId);
+
+            return Ok(user);
         }
 
         [Route("update")]
@@ -36,7 +44,7 @@ namespace Expert.WebApi.Controllers
         {
             _userRepository.UpdateUser(user);
 
-            return Ok();
+            return Ok(user);
         }
     }
 }
