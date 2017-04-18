@@ -10,6 +10,7 @@ using System.Web.Routing;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Expert.WebApi.Infrastructure;
+using Newtonsoft.Json.Serialization;
 
 namespace Expert.WebApi
 {
@@ -22,7 +23,10 @@ namespace Expert.WebApi
             var container = DependencyBuilder.Build();
 
             GlobalConfiguration.Configuration.Formatters.Clear();
-            GlobalConfiguration.Configuration.Formatters.Add(new JsonMediaTypeFormatter());
+
+            var jsonFormatter = new JsonMediaTypeFormatter();
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            GlobalConfiguration.Configuration.Formatters.Add(jsonFormatter);
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
