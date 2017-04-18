@@ -28,6 +28,12 @@ namespace Expert.WebApi.Controllers
             }
 
             var answer = _answerRepository.GetAnswers(x => x.Id == id).SingleOrDefault();
+
+            if (answer == null)
+            {
+                return NotFound();
+            }
+
             return Ok(answer);
         }
 
