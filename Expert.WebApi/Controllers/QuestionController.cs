@@ -31,6 +31,11 @@ namespace Expert.WebApi.Controllers
 
             var question = _questionRepository.GetQuestionsByFilter(x => x.Id == questionId).SingleOrDefault();
 
+            if (question == null)
+            {
+                return NotFound();
+            }
+
             return Ok(question);
         }
 
@@ -45,6 +50,11 @@ namespace Expert.WebApi.Controllers
 
             var question = _questionRepository.GetQuestionsByFilter(x => x.Id == questionId).SingleOrDefault();
             var answers = _answerRepository.GetAnswers(x => x.QuestionId == questionId);
+
+            if (question == null)
+            {
+                return NotFound();
+            }
 
             var viewModel = new QandAViewModel
             {
