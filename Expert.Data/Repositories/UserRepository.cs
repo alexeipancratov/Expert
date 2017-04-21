@@ -20,8 +20,7 @@ namespace Expert.Data.Repositories
 
         public void UpdateUser(User user)
         {
-            _context.Database.GetCollection<User>("users").UpdateOne(Builders<User>.Filter.Eq(u => u.Id, user.Id),
-                Builders<User>.Update.Set(u => u, user));
+            _context.Database.GetCollection<User>("users").ReplaceOne(u => u.Id == user.Id, user);
         }
 
         public void CreateUser(User user)
