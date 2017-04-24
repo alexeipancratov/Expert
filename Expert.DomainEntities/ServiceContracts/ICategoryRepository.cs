@@ -9,6 +9,8 @@ namespace Expert.DomainEntities.ServiceContracts
     {
         IQueryable<Category> GetCategories();
 
+        IQueryable<Category> GetCategoriesWithSubcategories();
+
         IQueryable<Category> GetCategoryByFilter(Expression<Func<Category, bool>> expression);
 
         Category GetCategory(string categoryId);

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\CategorySubcategory.cs" />
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\CoreEntity.cs" />
