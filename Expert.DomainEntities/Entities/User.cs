@@ -12,6 +12,6 @@ namespace Expert.DomainEntities.Entities
 
         public string Department { get; set; }
 
-        public List<int> Categories { get; set; }
+        public List<string> Subcategories { get; set; }
     }
 }

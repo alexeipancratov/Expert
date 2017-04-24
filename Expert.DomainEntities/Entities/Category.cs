@@ -1,4 +1,6 @@
-﻿namespace Expert.DomainEntities.Entities
+﻿using System.Collections.Generic;
+
+namespace Expert.DomainEntities.Entities
 {
     public class Category : CoreEntity
     {
