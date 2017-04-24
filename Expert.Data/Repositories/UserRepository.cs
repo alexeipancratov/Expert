@@ -13,9 +13,9 @@ namespace Expert.Data.Repositories
             _context = context;
         }
 
-        public User GetUser(string ldapId)
+        public User GetUser(string userId)
         {
-            return _context.Database.GetCollection<User>("users").FindSync(u => u.Id == ldapId).Single();
+            return _context.Database.GetCollection<User>("users").FindSync(u => u.Id == userId).Single();
         }
 
         public void UpdateUser(User user)

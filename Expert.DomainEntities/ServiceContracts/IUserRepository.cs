@@ -4,7 +4,7 @@ namespace Expert.DomainEntities.ServiceContracts
 {
     public interface IUserRepository
     {
-        User GetUser(string ldapId);
+        User GetUser(string userId);
 
         void UpdateUser(User user);
 

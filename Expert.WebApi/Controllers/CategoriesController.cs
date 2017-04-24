@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Expert.DomainEntities.Entities;
+﻿using System.Web.Http;
 using Expert.DomainEntities.ServiceContracts;
+using Expert.DomainEntities.Entities;
+using System.Net.Http;
+using System.Net;
 
 namespace Expert.WebApi.Controllers
 {
@@ -25,6 +22,28 @@ namespace Expert.WebApi.Controllers
         {
             var categories = _categoryRepository.GetCategories();
             return Ok(categories);
+        }
+
+        [Route("{categoryId}", Name = "GetCategory")]
+        public IHttpActionResult GetCategory(string categoryId)
+        {
+            var category = _categoryRepository.GetCategory(categoryId);
+
+            return Ok(category);
+        }
+
+        [HttpPost]
+        [Route("create")]
+        public IHttpActionResult CreateCategory(Category category)
+        {
+            if (!ModelState.IsValid)
+            {
+                Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot create question");
+            }
+
+            _categoryRepository.Create(category);
+
+            return CreatedAtRoute("GetCategory", new { categoryId = category.Id }, category);
         }
     }
 }
