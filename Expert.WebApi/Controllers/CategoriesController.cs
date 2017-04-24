@@ -3,8 +3,6 @@ using Expert.DomainEntities.ServiceContracts;
 using Expert.DomainEntities.Entities;
 using System.Net.Http;
 using System.Net;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Expert.WebApi.Controllers
 {
@@ -20,19 +18,19 @@ namespace Expert.WebApi.Controllers
 
         [HttpGet]
         [Route("")]
-        public IHttpActionResult GetCategories(bool includeSubcategories = false)
+        public IHttpActionResult GetCategories()
         {
-            List<Category> categories = null;
-
-            if (includeSubcategories)
-            {
-                categories = _categoryRepository.GetCategoriesWithSubcategories().ToList();
-            }
-            else
-            {
-                categories = _categoryRepository.GetCategories().ToList();
-            }
+            var categories = _categoryRepository.GetCategories();
             
+            return Ok(categories);
+        }
+
+        [HttpGet]
+        [Route("withSubcategories")]
+        public IHttpActionResult GetCategoriesWithSubcategories()
+        {
+            var categories = _categoryRepository.GetCategoriesWithSubcategories();
+
             return Ok(categories);
         }
 

@@ -29,7 +29,7 @@ namespace Expert.Data.Repositories
             return _categoriesCollection.AsQueryable();
         }
 
-        public IQueryable<Category> GetCategoriesWithSubcategories()
+        public IQueryable<CategorySubcategory> GetCategoriesWithSubcategories()
         {
             return from c in _categoriesCollection.AsQueryable()
                    join sc in _subcategoriesCollection.AsQueryable()
