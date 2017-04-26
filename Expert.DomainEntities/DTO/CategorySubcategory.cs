@@ -11,6 +11,6 @@ namespace Expert.DomainEntities.DTO
 
         public string Description { get; set; }
 
-        public IEnumerable<Subcategory> Subcategories { get; set; }
+        public IEnumerable<Category> Subcategories { get; set; }
     }
 }
