@@ -156,6 +156,7 @@
     <Compile Include="Infrastructure\DependencyBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\QandAViewModel.cs" />
+    <Compile Include="ViewModels\UserSubcategoriesUpdate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -51,11 +51,11 @@ namespace Expert.WebApi.Controllers
 
         [Route("updateSubcategories")]
         [HttpPost]
-        public IHttpActionResult UpdateUserSubcategories([FromBody] string userId, [FromBody] List<string> subcategories)
+        public IHttpActionResult UpdateUserSubcategories([FromBody] UserSubcategoriesUpdate model)
         {
-            User user = _userRepository.GetUser(userId);
+            User user = _userRepository.GetUser(model.UserId);
 
-            user.Subcategories = subcategories;
+            user.Subcategories = model.Subcategories;
 
             _userRepository.UpdateUser(user);
 
