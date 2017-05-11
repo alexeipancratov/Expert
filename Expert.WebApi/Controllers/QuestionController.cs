@@ -89,7 +89,7 @@ namespace Expert.WebApi.Controllers
                 Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot retrieve questions");
             }
 
-            var questions = _questionRepository.GetQuestionsByFilter(x => x.CategoryId == categoryId);
+            var questions = _questionRepository.GetQuestionsByFilter(x => x.CategoryId == categoryId).ToList();
 
             return Ok(questions);
         }

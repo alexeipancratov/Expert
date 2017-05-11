@@ -38,6 +38,7 @@ namespace Expert.Data.Repositories
                         {
                             Id = c.Id,
                             Description = c.Description,
+                            PictureUrl = c.PictureUrl,
                             Name = c.Name,
                             Subcategories = subcategories
                         };
