@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -74,6 +75,7 @@ namespace Expert.WebApi.Controllers
                 Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot create question");
             }
 
+            question.CreatedOn = DateTime.Now;
             _questionRepository.Save(question);
 
             return CreatedAtRoute("GetQuestion", new { questionId = question.Id}, question);
