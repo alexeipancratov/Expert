@@ -6,24 +6,32 @@ using System.Text;
 using System.Threading.Tasks;
 using Expert.DomainEntities.Entities;
 using Expert.DomainEntities.ServiceContracts;
+using MongoDB.Driver;
 
 namespace Expert.Data.Repositories
 {
     public class AnswerRepository : IAnswerRepository
     {
-        public void Save(Answer question)
+        private readonly IMongoCollection<Answer> _collection;
+
+        public AnswerRepository(ExpertContext context)
         {
-            throw new NotImplementedException();
+            _collection = context.Database.GetCollection<Answer>("answers");
         }
 
-        public void Update(Answer question)
+        public void Save(Answer answer)
         {
-            throw new NotImplementedException();
+            _collection.InsertOne(answer);
         }
 
-        public List<Answer> GetAnswers(Expression<Func<Answer, bool>> filterExpression)
+        public void Update(Answer answer)
         {
-            throw new NotImplementedException();
+            _collection.ReplaceOne(a => a.Id == answer.Id, answer);
+        }
+
+        public IQueryable<Answer> GetAnswers(Expression<Func<Answer, bool>> filterExpression)
+        {
+            return _collection.AsQueryable().Where(filterExpression);
         }
     }
 }
