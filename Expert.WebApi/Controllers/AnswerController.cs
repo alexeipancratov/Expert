@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Expert.DomainEntities.Entities;
 using Expert.DomainEntities.ServiceContracts;
+using Expert.WebApi.ViewModels;
 
 namespace Expert.WebApi.Controllers
 {
@@ -69,13 +70,21 @@ namespace Expert.WebApi.Controllers
 
         [Route("rateAnswer")]
         [HttpPost]
-        public IHttpActionResult RateAnswer(string answerId)
+        public IHttpActionResult RateAnswer(RateAnswerViewModel model)
         {
-            var answer = _answerRepository.GetAnswer(answerId);
-            answer.Likes++;
-
+            var answer = _answerRepository.GetAnswer(model.AnswerId);
             var user = _userRepository.GetUser(answer.UserId);
-            user.Rating++;
+
+            if (model.Operation == "up")
+            {
+                answer.Likes++;
+                user.Rating++;
+            }
+            else if (model.Operation == "down")
+            {
+                answer.Likes--;
+                user.Rating--;
+            }
 
             _answerRepository.Update(answer);
             _userRepository.UpdateUser(user);
