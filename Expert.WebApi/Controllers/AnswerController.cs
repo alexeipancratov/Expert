@@ -97,7 +97,7 @@ namespace Expert.WebApi.Controllers
         public IHttpActionResult ApproveAnswer(string answerId)
         {
             Answer answer = _answerRepository.GetAnswer(answerId);
-            answer.Approved = true;
+            answer.Accepted = true;
 
             _answerRepository.Update(answer);
 
