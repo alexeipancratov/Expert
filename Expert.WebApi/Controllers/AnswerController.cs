@@ -2,7 +2,6 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Expert.Data.Repositories;
 using Expert.DomainEntities.Entities;
 using Expert.DomainEntities.ServiceContracts;
 
@@ -12,10 +11,12 @@ namespace Expert.WebApi.Controllers
     public class AnswerController : ApiController
     {
         private readonly IAnswerRepository _answerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public AnswerController(IAnswerRepository answerRepository)
+        public AnswerController(IAnswerRepository answerRepository, IUserRepository userRepository)
         {
             _answerRepository = answerRepository;
+            _userRepository = userRepository;
         }
 
         [Route("{id}")]
@@ -51,9 +52,9 @@ namespace Expert.WebApi.Controllers
         }
 
 
-        [Route("create")]
+        [Route("create/{questionId}")]
         [HttpPost]
-        public IHttpActionResult CreateAnswer(Answer answer, string questionId)  
+        public IHttpActionResult CreateAnswer(string questionId, [FromBody]Answer answer)  
         {
             if (!ModelState.IsValid)
             {
@@ -63,7 +64,23 @@ namespace Expert.WebApi.Controllers
             answer.QuestionId = questionId;
             _answerRepository.Save(answer);
 
-            return CreatedAtRoute("GetAnswer", new { id = answer.Id }, answer);
+            return Ok(answer);
+        }
+
+        [Route("rateAnswer")]
+        [HttpPost]
+        public IHttpActionResult RateAnswer(string answerId)
+        {
+            var answer = _answerRepository.GetAnswer(answerId);
+            answer.Likes++;
+
+            var user = _userRepository.GetUser(answer.UserId);
+            user.Rating++;
+
+            _answerRepository.Update(answer);
+            _userRepository.UpdateUser(user);
+
+            return Ok();
         }
     }
 }

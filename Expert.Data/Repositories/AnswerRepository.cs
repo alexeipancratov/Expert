@@ -31,5 +31,10 @@ namespace Expert.Data.Repositories
         {
             return _collection.AsQueryable().Where(filterExpression).ToList();
         }
+
+        public Answer GetAnswer(string answerId)
+        {
+            return _collection.FindSync(a => a.Id == answerId).Single();
+        }
     }
 }

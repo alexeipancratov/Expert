@@ -12,5 +12,7 @@ namespace Expert.DomainEntities.ServiceContracts
         void Update(Answer question);
 
         List<Answer> GetAnswers(Expression<Func<Answer, bool>> filterExpression);
+
+        Answer GetAnswer(string answerId);
     }
 }
