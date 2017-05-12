@@ -1,4 +1,7 @@
-﻿using Expert.DomainEntities.Entities;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
+using Expert.DomainEntities.Entities;
 using Expert.DomainEntities.ServiceContracts;
 using MongoDB.Driver;
 
@@ -26,6 +29,11 @@ namespace Expert.Data.Repositories
         public void CreateUser(User user)
         {
             _context.Database.GetCollection<User>("users").InsertOne(user);
+        }   
+
+        public IQueryable<User> GetUsersByFilter(Expression<Func<User, bool>> expression)
+        {
+            return _context.Database.GetCollection<User>("users").AsQueryable().Where(expression);
         }
     }
 }

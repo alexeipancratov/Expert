@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Web.Http;
 using Expert.DomainEntities.Entities;
 using Expert.DomainEntities.ServiceContracts;
@@ -32,8 +34,8 @@ namespace Expert.WebApi.Controllers
             return CreatedAtRoute("GetUser", new { userId = user.Id }, user);
         }
 
-        [Route("{userId}", Name = "GetUser")]
-        public IHttpActionResult GetUser(string userId)
+        [Route("{userId}", Name = "GetUser")]   
+        public IHttpActionResult GetUser(string userId) 
         {
             User user = _userRepository.GetUser(userId);
 
@@ -60,6 +62,20 @@ namespace Expert.WebApi.Controllers
             _userRepository.UpdateUser(user);
 
             return Ok(user);
+        }
+
+        [Route("topUsers/{categoryId}")]
+        [HttpGet]
+        public IHttpActionResult GetTopUsersByCategory(string categoryId)
+        {
+            if (string.IsNullOrWhiteSpace(categoryId))
+            {
+                Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cannot retrieve users");
+            }
+
+            List<User> topUsers = _userRepository.GetUsersByFilter(x => x.Subcategories.Contains(categoryId)).OrderByDescending(x => x.Rating).Take(3).ToList();
+
+            return Ok(topUsers);
         }
     }
 }
