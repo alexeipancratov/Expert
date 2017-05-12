@@ -27,20 +27,21 @@ namespace Expert.WebApi.Controllers
         [HttpGet]
         public IHttpActionResult Search(string q)
         {
+            q = q.ToLower();
             List<SearchModel> searchResult = new List<SearchModel>();
-            var foundQuestions = _questionRepository.GetQuestionsByFilter(x => x.Description.Contains(q)).ToList();
+            var foundQuestions = _questionRepository.GetQuestionsByFilter(x => x.Description.ToLower().Contains(q)).ToList();
             if (foundQuestions.Any())
             {
                 foundQuestions.ForEach(question => searchResult.Add(new SearchModel { QuestionId = question.Id, QuestionDescription = question.Description}));
             }
 
-            var foundAnswers = _answerRepository.GetAnswers(x => x.Content.Contains(q)).ToList();
+            var foundAnswers = _answerRepository.GetAnswers(x => x.Content.ToLower().Contains(q)).ToList();
             if (foundAnswers.Any())
             {
                 foundAnswers.ForEach(answer => searchResult.Add(new SearchModel { AnswerId = answer.Id, QuestionDescription = answer.Content }));
             }
 
-            var foundUsers = _userRepository.GetUsersByFilter(x => x.FirstName.Contains(q) || x.LastName.Contains(q)).ToList();
+            var foundUsers = _userRepository.GetUsersByFilter(x => x.FirstName.ToLower().Contains(q) || x.LastName.ToLower().Contains(q)).ToList();
             if (foundUsers.Any())
             {
                 foundUsers.ForEach(user => searchResult.Add(new SearchModel { UserId = user.Id, UserName = string.Concat(user.FirstName," ",user.LastName) }));
