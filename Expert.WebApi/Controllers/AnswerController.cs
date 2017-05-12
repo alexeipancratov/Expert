@@ -92,9 +92,9 @@ namespace Expert.WebApi.Controllers
             return Ok();
         }
 
-        [Route("rateAnswer")]
+        [Route("acceptAnswer")]
         [HttpPost]
-        public IHttpActionResult ApproveAnswer(string answerId)
+        public IHttpActionResult AcceptAnswer(string answerId)
         {
             Answer answer = _answerRepository.GetAnswer(answerId);
             answer.Accepted = true;
