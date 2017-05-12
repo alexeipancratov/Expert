@@ -13,9 +13,10 @@ namespace Expert.WebApi.Controllers
         private readonly IAnswerRepository _answerRepository;
         private readonly IUserRepository _userRepository;
 
-        public AnswerController(IAnswerRepository answerRepository)
+        public AnswerController(IAnswerRepository answerRepository, IUserRepository userRepository)
         {
             _answerRepository = answerRepository;
+            _userRepository = userRepository;
         }
 
         [Route("{id}")]
