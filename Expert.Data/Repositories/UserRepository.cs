@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Expert.DomainEntities.Entities;
 using Expert.DomainEntities.ServiceContracts;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace Expert.Data.Repositories
 {
