@@ -91,5 +91,17 @@ namespace Expert.WebApi.Controllers
 
             return Ok();
         }
+
+        [Route("rateAnswer")]
+        [HttpPost]
+        public IHttpActionResult ApproveAnswer(string answerId)
+        {
+            Answer answer = _answerRepository.GetAnswer(answerId);
+            answer.Approved = true;
+
+            _answerRepository.Update(answer);
+
+            return Ok();
+        }
     }
 }

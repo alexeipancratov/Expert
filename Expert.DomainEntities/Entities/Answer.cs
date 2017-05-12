@@ -15,5 +15,7 @@ namespace Expert.DomainEntities.Entities
         public bool Accepted { get; set; }
 
         public int Likes { get; set; }
+
+        public bool Approved { get; set; }
     }
 }
