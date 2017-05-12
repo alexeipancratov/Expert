@@ -92,7 +92,7 @@ namespace Expert.WebApi.Controllers
             return Ok();
         }
 
-        [Route("acceptAnswer")]
+        [Route("acceptAnswer/{answerId}")]
         [HttpPost]
         public IHttpActionResult AcceptAnswer(string answerId)
         {
