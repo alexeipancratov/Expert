@@ -22,10 +22,7 @@ namespace Expert.WebApi
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            var corsAttr = new EnableCorsAttribute("http://localhost:3000", "*", "*")
-            {
-                SupportsCredentials = true
-            };
+            var corsAttr = new EnableCorsAttribute("*", "*", "*");
 
             config.EnableCors(corsAttr);
         }
