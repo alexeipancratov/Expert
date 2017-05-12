@@ -8,7 +8,7 @@ namespace Expert.DomainEntities.Entities
 
         public DateTime DateTime { get; set; }
 
-        public User User { get; set; }
+        public string UserId { get; set; }
 
         public string Content { get; set; }
 

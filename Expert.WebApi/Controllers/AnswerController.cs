@@ -2,7 +2,6 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Expert.Data.Repositories;
 using Expert.DomainEntities.Entities;
 using Expert.DomainEntities.ServiceContracts;
 
@@ -12,6 +11,7 @@ namespace Expert.WebApi.Controllers
     public class AnswerController : ApiController
     {
         private readonly IAnswerRepository _answerRepository;
+        private readonly IUserRepository _userRepository;
 
         public AnswerController(IAnswerRepository answerRepository)
         {
@@ -64,6 +64,22 @@ namespace Expert.WebApi.Controllers
             _answerRepository.Save(answer);
 
             return CreatedAtRoute("GetAnswer", new { id = answer.Id }, answer);
+        }
+
+        [Route("rateAnswer")]
+        [HttpPost]
+        public IHttpActionResult RateAnswer(string answerId)
+        {
+            var answer = _answerRepository.GetAnswer(answerId);
+            answer.Likes++;
+
+            var user = _userRepository.GetUser(answer.UserId);
+            user.Rating++;
+
+            _answerRepository.Update(answer);
+            _userRepository.UpdateUser(user);
+
+            return Ok();
         }
     }
 }
