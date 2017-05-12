@@ -51,9 +51,9 @@ namespace Expert.WebApi.Controllers
         }
 
 
-        [Route("create")]
+        [Route("create/{questionId}")]
         [HttpPost]
-        public IHttpActionResult CreateAnswer(Answer answer, string questionId)  
+        public IHttpActionResult CreateAnswer(string questionId, [FromBody]Answer answer)  
         {
             if (!ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace Expert.WebApi.Controllers
             answer.QuestionId = questionId;
             _answerRepository.Save(answer);
 
-            return CreatedAtRoute("GetAnswer", new { id = answer.Id }, answer);
+            return Ok(answer);
         }
 
         [Route("rateAnswer")]
