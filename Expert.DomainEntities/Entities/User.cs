@@ -10,6 +10,8 @@ namespace Expert.DomainEntities.Entities
 
         public int Level { get; set; }
 
+        public int Rating { get; set; }
+
         public string Department { get; set; }
 
         public List<string> Subcategories { get; set; }
