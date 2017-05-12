@@ -45,11 +45,6 @@ namespace Expert.WebApi.Controllers
             {
                 foundUsers.ForEach(user => searchResult.Add(new SearchModel { UserId = user.Id, UserName = string.Concat(user.FirstName," ",user.LastName) }));
             }
-
-            if (!searchResult.Any())
-            {
-                return NotFound();
-            }
                 
             return Ok(searchResult);
         }
